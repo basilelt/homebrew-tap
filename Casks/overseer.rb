@@ -1,14 +1,20 @@
 cask "overseer" do
-  version "0.26.6"
-  sha256 "61bc4fd5e9bbffac012c73b803aa7fbc0ca41d372ba5db6da312c54a1ccaba14"
+  version "0.26.7"
 
-  url "https://github.com/basilelt/overseer/releases/download/v0.26.6/Overseer_0.26.6_aarch64.dmg"
+  on_arm do
+    sha256 "aaf1cb2b2e16364fbc1df89765be41d27a5302d4734bbfb38e683e8ceb5dfe66"
+    url "https://github.com/basilelt/overseer/releases/download/v0.26.7/Overseer_0.26.7_aarch64.dmg"
+  end
+  on_intel do
+    sha256 "6ff8e41bc7edb24b55ee49e79b9029638dde8f42b46d70be8c29a424e5467296"
+    url "https://github.com/basilelt/overseer/releases/download/v0.26.7/Overseer_0.26.7_x64.dmg"
+  end
+
   name "Overseer"
   desc "Desktop client for Overseer agent sessions"
   homepage "https://github.com/basilelt/overseer"
 
   depends_on :macos
-  depends_on arch: :arm64
 
   app "Overseer.app"
 
