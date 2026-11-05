@@ -1,13 +1,13 @@
 cask "overseer" do
-  version "0.26.18"
+  version "0.26.19"
 
   on_arm do
-    sha256 "c3322dc30aa337cdb3ed8d4479936998f63cd0bb8da7bb91ea6207429e968c39"
+    sha256 "e8f9a59d3b1b6893c1af9008d357cf2888782e52a1aefa620763b1a6f61971af"
 
     url "https://github.com/basilelt/overseer/releases/download/v#{version}/Overseer_#{version}_aarch64.dmg"
   end
   on_intel do
-    sha256 "99a378cc8e19d574619eff64a4f5f044f1d2bfd1193b5a5c7c55ac5b56a34942"
+    sha256 "0ec2671822d84232c1fe91de95f0664d41a58c8c5791e88d341279e435ba39e4"
 
     url "https://github.com/basilelt/overseer/releases/download/v#{version}/Overseer_#{version}_x64.dmg"
   end
@@ -15,6 +15,11 @@ cask "overseer" do
   name "Overseer"
   desc "Desktop client for Overseer agent sessions"
   homepage "https://github.com/basilelt/overseer"
+
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
 
   depends_on :macos
 
