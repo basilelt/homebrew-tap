@@ -1,7 +1,6 @@
 class Overseer < Formula
   desc "Daemon and CLI that supervise coding agent sessions"
   homepage "https://github.com/basilelt/overseer"
-  version "0.26.8"
 
   on_macos do
     on_arm do

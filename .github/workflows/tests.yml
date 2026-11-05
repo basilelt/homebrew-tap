@@ -1,0 +1,81 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - main
+      - "bump/**"
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  HOMEBREW_NO_AUTO_UPDATE: "1"
+  HOMEBREW_NO_ANALYTICS: "1"
+  HOMEBREW_NO_ENV_HINTS: "1"
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-26, macos-15-intel, ubuntu-24.04]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    steps:
+      - uses: Homebrew/actions/setup-homebrew@c262868c096d909fc278daa87ed9772967331ea3 # 2026.11.02.1
+
+      - run: brew trust basilelt/tap
+
+      - run: brew style basilelt/tap
+
+      - name: Formula
+        run: |
+          if [ ! -f "$(brew --repository basilelt/tap)/Formula/overseer.rb" ]; then
+            echo "no formula yet"
+            exit 0
+          fi
+          brew audit --strict --online --formula basilelt/tap/overseer
+          brew install --formula basilelt/tap/overseer
+          brew test basilelt/tap/overseer
+          brew uninstall --formula overseer
+
+      - name: Cask
+        if: runner.os == 'macOS'
+        run: |
+          cask="$(brew --repository basilelt/tap)/Casks/overseer.rb"
+          if [ ! -f "$cask" ]; then
+            echo "no cask yet"
+            exit 0
+          fi
+          if [ "$(uname -m)" = x86_64 ] && ! grep -Eq 'on_intel|arch: :x86_64' "$cask"; then
+            echo "arm64-only cask: nothing to install on Intel"
+            exit 0
+          fi
+          brew audit --strict --online --cask basilelt/tap/overseer
+          brew install --cask basilelt/tap/overseer
+          spctl --assess --type execute --verbose=4 /Applications/Overseer.app
+          brew uninstall --cask --zap overseer
+
+  publish:
+    needs: test
+    if: github.event_name == 'push' && startsWith(github.ref_name, 'bump/')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+
+      - env:
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          git push origin "HEAD:refs/heads/main"
+          git push origin --delete "$BRANCH"
