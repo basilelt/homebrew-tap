@@ -57,7 +57,7 @@ jobs:
             echo "arm64-only cask: nothing to install on Intel"
             exit 0
           fi
-          brew audit --strict --online --signing --cask basilelt/tap/overseer
+          brew audit --strict --online --cask basilelt/tap/overseer
           brew install --cask basilelt/tap/overseer
           spctl --assess --type execute --verbose=4 /Applications/Overseer.app
           brew uninstall --cask --zap overseer
