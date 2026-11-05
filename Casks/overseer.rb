@@ -1,13 +1,13 @@
 cask "overseer" do
-  version "0.27.1"
+  version "0.28.0"
 
   on_arm do
-    sha256 "2581b415ceefa2075d9ab1f8dbc31043231815d401a2da5979b4548627b31b46"
+    sha256 "f750edead34f23e179787a11732ca36b91138b9191c395dce680aa6b37887dae"
 
     url "https://github.com/basilelt/overseer/releases/download/v#{version}/Overseer_#{version}_aarch64.dmg"
   end
   on_intel do
-    sha256 "9cb5e1968578e547c31aa6e4bf593ea4a841773e861c57b28a9195b29db46ad9"
+    sha256 "184f1d8b66baba55ac46a3cf666781be2ab9f30ce18625a77f61d1f85974f9e8"
 
     url "https://github.com/basilelt/overseer/releases/download/v#{version}/Overseer_#{version}_x64.dmg"
   end
