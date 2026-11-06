@@ -4,23 +4,23 @@ class Overseer < Formula
 
   on_macos do
     on_arm do
-      url "https://github.com/basilelt/overseer/releases/download/v0.28.0/overseer-0.28.0-aarch64-apple-darwin"
-      sha256 "2b5597f84e8d52db14f678b66001698e8e897f968ff5497fd4a57a4587d63617"
+      url "https://github.com/basilelt/overseer/releases/download/v0.29.0/overseer-0.29.0-aarch64-apple-darwin"
+      sha256 "b3d70138190ab5011295bfff21b1960a2ac3c4ec2eaa4d9449b71331c3db6929"
     end
     on_intel do
-      url "https://github.com/basilelt/overseer/releases/download/v0.28.0/overseer-0.28.0-x86_64-apple-darwin"
-      sha256 "c1c836a528fce1b6aa2ad7810213bd9b69ae460f9413b53b1ee282bab1d5c2e5"
+      url "https://github.com/basilelt/overseer/releases/download/v0.29.0/overseer-0.29.0-x86_64-apple-darwin"
+      sha256 "37a2ed701fdafdeea98b84a87f63301045a4d97d5009679528436da0a51d2a8d"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/basilelt/overseer/releases/download/v0.28.0/overseer-0.28.0-aarch64-unknown-linux-musl"
-      sha256 "62b22145cd12d2d24a1dec2f1b09f6b5f30bcdef6ec1042bae5a96f54305e7bf"
+      url "https://github.com/basilelt/overseer/releases/download/v0.29.0/overseer-0.29.0-aarch64-unknown-linux-musl"
+      sha256 "9efdb69fb000e8c615b97e9884b53464932b20339a1fa48b9e0c85f9c4c4096b"
     end
     on_intel do
-      url "https://github.com/basilelt/overseer/releases/download/v0.28.0/overseer-0.28.0-x86_64-unknown-linux-musl"
-      sha256 "37b508b974f1e5dc92b353ac77801fc32940b358ce6c9ef60efd661f284cc4c3"
+      url "https://github.com/basilelt/overseer/releases/download/v0.29.0/overseer-0.29.0-x86_64-unknown-linux-musl"
+      sha256 "1105bff5b33d4072d6156c3393562982147c1573559e5a04e3111d25a9680ffe"
     end
   end
 
