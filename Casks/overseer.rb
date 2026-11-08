@@ -1,13 +1,15 @@
 cask "overseer" do
-  version "0.33.1"
+  arch arm: "aarch64", intel: "x86_64"
+
+  version "0.34.0"
 
   on_arm do
-    sha256 "fb8c9cf83e0c0ebc3d050f29fd4147e6661df75e9da4607824bed8405b6ad2d9"
+    sha256 "d33bc98c4fff714327f93a5237c5115ed55b5eff74d28bbaefa7983b2cd8ec82"
 
     url "https://github.com/basilelt/overseer/releases/download/v#{version}/Overseer_#{version}_aarch64.dmg"
   end
   on_intel do
-    sha256 "8a35b5958ad0cda339d5a199ee1697fdbd9eb56389dfbcecf4e500c05e018349"
+    sha256 "a98affbc26ddb1c6c850433c914db82042fc63b61a9b22e03ca458a0c75b6dd9"
 
     url "https://github.com/basilelt/overseer/releases/download/v#{version}/Overseer_#{version}_x64.dmg"
   end
@@ -25,11 +27,21 @@ cask "overseer" do
 
   app "Overseer.app"
 
-  zap trash: [
-    "~/Library/Application Support/io.github.basilelt.overseer",
-    "~/Library/Caches/io.github.basilelt.overseer",
-    "~/Library/Preferences/io.github.basilelt.overseer.plist",
-    "~/Library/Saved Application State/io.github.basilelt.overseer.savedState",
-    "~/Library/WebKit/io.github.basilelt.overseer",
-  ]
+  zap launchctl: "dev.overseer.daemon",
+      script:    {
+        executable:   "#{appdir}/Overseer.app/Contents/Resources/server/darwin-#{arch}/overseer",
+        args:         ["uninstall", "--apply"],
+        must_succeed: false,
+      },
+      trash:     [
+        "~/.overseer",
+        "~/Library/Application Support/io.github.basilelt.overseer",
+        "~/Library/Application Support/overseer",
+        "~/Library/Caches/io.github.basilelt.overseer",
+        "~/Library/LaunchAgents/dev.overseer.daemon.plist",
+        "~/Library/Logs/io.github.basilelt.overseer",
+        "~/Library/Preferences/io.github.basilelt.overseer.plist",
+        "~/Library/Saved Application State/io.github.basilelt.overseer.savedState",
+        "~/Library/WebKit/io.github.basilelt.overseer",
+      ]
 end
